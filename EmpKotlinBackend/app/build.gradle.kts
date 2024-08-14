@@ -14,6 +14,8 @@ plugins {
 //    kotlin("jvm") version "1.6.10"
 //    id("io.dropwizard.application") version "2.0.0"
 }
+group = "org.example"
+version = "1.0-SNAPSHOT"
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -39,8 +41,30 @@ dependencies {
     implementation("io.dropwizard:dropwizard-db:5.0.0-alpha.1")
     implementation("io.dropwizard:dropwizard-jdbi3:5.0.0-alpha.1")
     implementation("org.eclipse.jetty:jetty-servlets:11.0.22")
+//    implementation ("jakarta.ws.rs:jakarta.ws.rs-api:2.1.1")
+//    implementation ("org.glassfish.jersey.core:jersey-server:2.x.x")
+//    implementation ("org.glassfish.jersey.media:jersey-media-json-jackson:2.x.x")
+    implementation ("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+    implementation("org.glassfish.jersey.core:jersey-common:3.0.6")
+    implementation("org.glassfish.jersey.core:jersey-server:3.0.6")
+    implementation("org.glassfish.jersey.media:jersey-media-moxy:3.0.6") // For XML
+    implementation("org.glassfish.jersey.media:jersey-media-jaxb:3.0.6") // For XML
+    implementation("org.glassfish.jersey.media:jersey-media-json-jackson:3.0.6")
+
+//    implementation("org.glassfish.jersey.core:jersey-common:2.34")
+//    implementation("org.glassfish.jersey.core:jersey-server:2.34")
+//    implementation("org.glassfish.jersey.media:jersey-media-json-jackson:2.34")
+
+    implementation("org.glassfish.jersey.core:jersey-common:3.0.6")
+    implementation("org.glassfish.jersey.core:jersey-server:3.0.6")
+
+    // JSON support for Jersey
+    implementation("org.glassfish.jersey.media:jersey-media-json-jackson:3.0.6")
 
 }
+
+
 
 // Apply a specific Java toolchain to ease working on different environments.
 java {
@@ -48,10 +72,13 @@ java {
         languageVersion = JavaLanguageVersion.of(21)
     }
 }
+tasks.withType<JavaExec> {
+    args = listOf("server", "../config.yml")
+}
 
 application {
     // Define the main class for the application.
-    mainClass = "org.example.AppKt"
+    mainClass.set("org.example.APIApplication")
 }
 
 tasks.named<Test>("test") {

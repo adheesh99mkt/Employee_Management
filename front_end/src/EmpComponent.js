@@ -38,7 +38,15 @@ export const EmployeeForm = () => {
     e.preventDefault()
 
     console.log({name,department,designation,salary});
-    
+    const Emp={name,department,designation,salary}
+    fetch("http://localhost:8001/employee",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(Emp)
+    }).then(()=>{
+        console.log("New Employee added");
+        
+    })
 
     setName('')
     setDepartment('')
